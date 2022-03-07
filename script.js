@@ -158,3 +158,28 @@ btnLogin.addEventListener("click", function (e) {
   inputLoginUsername.value = "";
   inputLoginPin.blur();
 });
+
+btnTransfer.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const receiver = inputTransferTo.value;
+  const amount = Number(inputTransferAmount.value);
+
+  const account = accounts.find((acc) => acc.username === receiver);
+
+  if (
+    account &&
+    amount > 0 &&
+    amount <= currentUser.balance &&
+    currentUser?.username !== receiver
+  ) {
+    account.movements.push(amount);
+    currentUser.movements.push(-amount);
+
+    updateUI();
+  }
+
+  inputTransferAmount.value = "";
+  inputTransferTo.value = "";
+  inputTransferAmount.blur();
+});
