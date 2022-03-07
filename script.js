@@ -200,3 +200,23 @@ btnLoan.addEventListener("click", function (e) {
     inputLoanAmount.blur();
   }
 });
+
+btnClose.addEventListener("click", function (e) {
+  e.preventDefault();
+  const closeUserName = inputCloseUsername.value;
+  const closePin = Number(inputClosePin.value);
+
+  if (
+    currentUser?.username === closeUserName &&
+    currentUser?.pin === closePin
+  ) {
+    const index = accounts.findIndex((acc) => acc.username === closeUserName);
+    accounts.splice(index, 1);
+
+    containerApp.style.opacity = 0;
+    labelWelcome.textContent = "Log in to get started";
+  }
+
+  inputClosePin.value = "";
+  inputCloseUsername.value = "";
+});
