@@ -131,9 +131,30 @@ const displaySummary = function (account) {
 };
 
 const updateUI = function () {
-  displaySummary(account1);
-  displayMovements(account1.movements);
-  calcBalance(account1);
+  displaySummary(currentUser);
+  displayMovements(currentUser.movements);
+  calcBalance(currentUser);
 };
 
-updateUI();
+// Event listeners
+let currentUser;
+
+btnLogin.addEventListener("click", function (e) {
+  e.preventDefault();
+  const userInput = inputLoginUsername.value.toLowerCase();
+  const pin = Number(inputLoginPin.value);
+  currentUser = accounts.find((acc) => acc.username === userInput);
+
+  if (currentUser?.pin === pin) {
+    containerApp.style.opacity = 1;
+    labelWelcome.textContent = `Welcome back, ${
+      currentUser.owner.split(" ")[0]
+    }`;
+
+    updateUI();
+  }
+
+  inputLoginPin.value = "";
+  inputLoginUsername.value = "";
+  inputLoginPin.blur();
+});
