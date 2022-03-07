@@ -31,7 +31,7 @@ const account2 = {
   owner: "Guest Account",
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
-  pin: 0000,
+  pin: 1111,
 
   movementsDates: [
     "2021-11-01T13:15:33.035Z",
@@ -77,3 +77,63 @@ const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
 /////////////////////////////////////////////////
+
+// Functions
+const displayMovements = function (account) {
+  containerMovements.innerHTML = "";
+
+  account.forEach((acc, i) => {
+    const status = acc > 0 ? "deposit" : "withdrawal";
+
+    const element = `<div class="movements__row">
+        <div class="movements__type movements__type--${status}">${
+      i + 1
+    } ${status}</div>
+        <div class="movements__date">${i}</div>
+        <div class="movements__value">${acc}€</div>
+      </div>`;
+    containerMovements.insertAdjacentHTML("afterbegin", element);
+  });
+};
+
+const calcBalance = function (account) {
+  account.balance = account.movements.reduce((acc, cur) => acc + cur, 0);
+  labelBalance.textContent = account.balance;
+};
+
+const createUserName = function (account) {
+  account.forEach((acc) => {
+    const user = acc.owner.toLowerCase().split(" ");
+    let userName = "";
+    user.forEach((acc, i) => (userName += acc[0]));
+    acc.username = userName;
+  });
+};
+createUserName(accounts);
+
+const displaySummary = function (account) {
+  const inMov = account.movements
+    .filter((acc) => acc > 0)
+    .reduce((acc, cur) => acc + cur, 0);
+  labelSumIn.textContent = inMov;
+
+  const outMov = account.movements
+    .filter((acc) => acc < 0)
+    .reduce((acc, cur) => acc + cur, 0);
+  labelSumOut.textContent = Math.abs(outMov).toFixed(2);
+
+  const interest = account.movements
+    .filter((acc) => acc > 0)
+    .map((mov) => mov * (account.interestRate / 100))
+    .filter((acc) => acc > 1)
+    .reduce((acc, cur) => acc + cur, 0);
+  labelSumInterest.textContent = interest;
+};
+
+const updateUI = function () {
+  displaySummary(account1);
+  displayMovements(account1.movements);
+  calcBalance(account1);
+};
+
+updateUI();
