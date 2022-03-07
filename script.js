@@ -79,10 +79,11 @@ const inputClosePin = document.querySelector(".form__input--pin");
 /////////////////////////////////////////////////
 
 // Functions
-const displayMovements = function (account) {
+const displayMovements = function (account, sort = false) {
   containerMovements.innerHTML = "";
+  const sorted = sort ? account.slice().sort((a, b) => a - b) : account;
 
-  account.forEach((acc, i) => {
+  sorted.forEach((acc, i) => {
     const status = acc > 0 ? "deposit" : "withdrawal";
 
     const element = `<div class="movements__row">
@@ -219,4 +220,11 @@ btnClose.addEventListener("click", function (e) {
 
   inputClosePin.value = "";
   inputCloseUsername.value = "";
+});
+
+let sort = false;
+
+btnSort.addEventListener("click", function () {
+  displayMovements(currentUser.movements, !sort);
+  sort = !sort;
 });
