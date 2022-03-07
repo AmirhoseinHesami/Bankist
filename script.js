@@ -183,3 +183,20 @@ btnTransfer.addEventListener("click", function (e) {
   inputTransferTo.value = "";
   inputTransferAmount.blur();
 });
+
+btnLoan.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const amount = Math.floor(Number(inputLoanAmount.value));
+
+  if (amount > 0 && currentUser.movements.some((mov) => mov >= amount / 10)) {
+    setTimeout(function () {
+      currentUser.movements.push(amount);
+
+      updateUI();
+    }, 3000);
+
+    inputLoanAmount.value = "";
+    inputLoanAmount.blur();
+  }
+});
