@@ -185,7 +185,30 @@ const updateUI = function () {
 };
 
 // Event listeners
-let currentUser;
+let currentUser, timer;
+
+const startLogOutTimer = function () {
+  function tik() {
+    const min = String(Math.floor(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+
+    if (time === 0) {
+      clearInterval(timer);
+      containerApp.style.opacity = 0;
+      labelWelcome.textContent = "Log in to get started";
+    }
+
+    time--;
+
+    labelTimer.textContent = `${min}:${sec}`;
+  }
+  let time = 120;
+  tik();
+
+  const timer = setInterval(tik, 1000);
+
+  return timer;
+};
 
 btnLogin.addEventListener("click", function (e) {
   e.preventDefault();
@@ -212,6 +235,9 @@ btnLogin.addEventListener("click", function (e) {
       new Date()
     );
     labelDate.textContent = date;
+
+    if (timer) clearInterval(timer);
+    timer = startLogOutTimer();
   }
 
   inputLoginPin.value = "";
@@ -240,6 +266,9 @@ btnTransfer.addEventListener("click", function (e) {
     currentUser.movementsDates.push(new Date().toISOString());
 
     updateUI();
+
+    clearInterval(timer);
+    timer = startLogOutTimer();
   }
 
   inputTransferAmount.value = "";
@@ -258,6 +287,9 @@ btnLoan.addEventListener("click", function (e) {
       currentUser.movementsDates.push(new Date().toISOString());
 
       updateUI();
+
+      clearInterval(timer);
+      timer = startLogOutTimer();
     }, 3000);
 
     inputLoanAmount.value = "";
