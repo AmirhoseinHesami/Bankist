@@ -8,10 +8,10 @@
 // Data
 
 const account1 = {
-  owner: "Amirhosein Hesami",
+  owner: "Admin Account",
   movements: [150, 465.25, -302.5, 23000, -645.21, -133.9, 79.97, 1250],
   interestRate: 1.2, // %
-  pin: 1234,
+  pin: 1111,
 
   movementsDates: [
     "2021-11-18T21:31:17.178Z",
@@ -31,7 +31,7 @@ const account2 = {
   owner: "Guest Account",
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
-  pin: 1111,
+  pin: 2222,
 
   movementsDates: [
     "2021-11-01T13:15:33.035Z",
