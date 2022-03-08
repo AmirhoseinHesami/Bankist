@@ -139,10 +139,11 @@ const calcBalance = function (account) {
 
 const createUserName = function (account) {
   account.forEach((acc) => {
-    const user = acc.owner.toLowerCase().split(" ");
-    let userName = "";
-    user.forEach((acc) => (userName += acc[0]));
-    acc.username = userName;
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(" ")
+      .map((name) => name[0])
+      .join("");
   });
 };
 createUserName(accounts);
@@ -238,11 +239,14 @@ btnLogin.addEventListener("click", function (e) {
 
     if (timer) clearInterval(timer);
     timer = startLogOutTimer();
+  } else {
+    containerApp.style.opacity = 0;
+    labelWelcome.textContent = "Log in to get started";
   }
 
-  inputLoginPin.value = "";
-  inputLoginUsername.value = "";
+  inputLoginPin.value = inputLoginUsername.value = "";
   inputLoginPin.blur();
+  inputLoginUsername.blur();
 });
 
 btnTransfer.addEventListener("click", function (e) {
@@ -271,9 +275,9 @@ btnTransfer.addEventListener("click", function (e) {
     timer = startLogOutTimer();
   }
 
-  inputTransferAmount.value = "";
-  inputTransferTo.value = "";
+  inputTransferAmount.value = inputTransferTo.value = "";
   inputTransferAmount.blur();
+  inputTransferTo.blur();
 });
 
 btnLoan.addEventListener("click", function (e) {
@@ -313,8 +317,7 @@ btnClose.addEventListener("click", function (e) {
     labelWelcome.textContent = "Log in to get started";
   }
 
-  inputClosePin.value = "";
-  inputCloseUsername.value = "";
+  inputClosePin.value = inputCloseUsername.value = "";
 });
 
 let sort = false;
