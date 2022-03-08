@@ -322,11 +322,11 @@ h2 {
   }
 
   .balance__date {
-    font-size: 1.3;
+    font-size: 1.3rem;
   }
 
   .balance__value {
-    font-size: 3.4rem;
+    font-size: 3rem;
   }
 
   .movements {
