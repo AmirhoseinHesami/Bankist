@@ -251,6 +251,9 @@ btnLogin.addEventListener("click", function (e) {
     );
     labelDate.textContent = date;
 
+    // Reset sort
+    sort = false;
+
     // Update UI
     updateUI(currentUser);
 
@@ -290,6 +293,9 @@ btnTransfer.addEventListener("click", function (e) {
     recieverAccount.movementsDates.push(new Date().toISOString());
     currentUser.movementsDates.push(new Date().toISOString());
 
+    // Reset sort
+    sort = false;
+
     // Update UI
     updateUI(currentUser);
 
@@ -316,6 +322,9 @@ btnLoan.addEventListener("click", function (e) {
 
       // Date
       currentUser.movementsDates.push(new Date().toISOString());
+
+      // Reset sort
+      sort = false;
 
       // Update UI
       updateUI(currentUser);
