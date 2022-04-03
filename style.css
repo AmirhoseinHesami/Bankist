@@ -391,5 +391,14 @@ h2 {
 
   .balance__value {
     margin-top: 1rem;
+    font-size: 3.5rem;
+  }
+
+  .balance__label {
+    font-size: 1.9rem;
+  }
+
+  .balance__date {
+    font-size: 1.6rem;
   }
 }
