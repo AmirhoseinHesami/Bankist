@@ -276,7 +276,7 @@ btnTransfer.addEventListener("click", function (e) {
 
   const amount = Number(inputTransferAmount.value);
   const recieverAccount = accounts.find(
-    (acc) => acc.username === inputTransferTo.value
+    (acc) => acc.username === inputTransferTo.value.toLowerCase().trim()
   );
 
   if (
@@ -343,7 +343,7 @@ btnLoan.addEventListener("click", function (e) {
 btnClose.addEventListener("click", function (e) {
   e.preventDefault();
 
-  const closeUserName = inputCloseUsername.value;
+  const closeUserName = inputCloseUsername.value.toLowerCase().trim();
   const closePin = Number(inputClosePin.value);
 
   if (currentUser.username === closeUserName && currentUser.pin === closePin) {
