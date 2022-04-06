@@ -218,6 +218,22 @@ const startLogOutTimer = function () {
   return timer;
 };
 
+const printWelcome = function (name) {
+  const now = new Date();
+  const greeting = new Map([
+    [[6, 7, 8, 9, 10], "Good Morning"],
+    [[11, 12, 13, 14], "Good Day"],
+    [[15, 16, 17, 18], "Good Afternoon"],
+    [[19, 20, 21, 22], "Good Evening"],
+    [[23, 0, 1, 2, 3, 4, 5], "Good Night"],
+  ]);
+
+  const arr = [...greeting.keys()].find((key) => key.includes(now.getHours()));
+  const greet = greeting.get(arr);
+
+  labelWelcome.textContent = `${greet}, ${name}!`;
+};
+
 ///////////////////////////////////////
 // Event handlers
 let currentUser, timer;
@@ -234,9 +250,7 @@ btnLogin.addEventListener("click", function (e) {
   if (currentUser?.pin === pin) {
     // Display UI and message
     containerApp.style.opacity = 1;
-    labelWelcome.textContent = `Welcome back, ${
-      currentUser.owner.split(" ")[0]
-    }`;
+    printWelcome(currentUser.owner.split(" ")[0]);
 
     // Display date
     const option = {
@@ -359,6 +373,8 @@ btnClose.addEventListener("click", function (e) {
 
   // Clear input fields
   inputClosePin.value = inputCloseUsername.value = "";
+  inputClosePin.blur();
+  inputCloseUsername.blur();
 });
 
 let sort = false;
